@@ -1,0 +1,5 @@
+# Project exclude paths
+/Common/target/
+/DiscoveryService/target/
+/FrontService/target/
+/ProductService/target/
