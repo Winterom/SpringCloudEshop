@@ -2,13 +2,13 @@ package core.controllers;
 
 
 import core.converters.ProductConverter;
-import core.dto.ProductDto;
 import core.entities.Product;
 import core.services.ProductsService;
 import core.validators.ProductValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import web.dto.ProductDto;
 import web.exception.ResourceNotFoundException;
 
 @RestController

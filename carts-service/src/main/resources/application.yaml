@@ -1,0 +1,7 @@
+server:
+  port: 8192
+  servlet:
+    context-path: /web-market-carts
+utils:
+  cart:
+    prefix: SPRING_WEB_

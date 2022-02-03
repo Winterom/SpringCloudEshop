@@ -1,9 +1,9 @@
-package core.controllers;
+package cart.controllers;
 
 
-import core.dto.Cart;
-import core.services.CartService;
-import core.services.ProductsService;
+
+import cart.dto.Cart;
+import cart.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import web.dto.StringResponse;
@@ -14,7 +14,6 @@ import web.dto.StringResponse;
 @RequiredArgsConstructor
 public class CartsController {
     private final CartService cartService;
-    private final ProductsService productsService;
 
     @GetMapping("/{uuid}")
     public Cart getCart(@RequestHeader(required = false) String username, @PathVariable String uuid) {

@@ -1,6 +1,5 @@
 package core.services;
 
-import core.dto.Cart;
 import core.dto.OrderDetailsDto;
 import core.entities.Order;
 import core.entities.OrderItem;
@@ -8,6 +7,7 @@ import core.repositories.OrdersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import web.dto.Cart;
 import web.exception.ResourceNotFoundException;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderService {
     private final OrdersRepository ordersRepository;
-    private final CartService cartService;
+    private final RequestCartService cartService;
     private final ProductsService productsService;
 
     @Transactional
