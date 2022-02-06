@@ -9,7 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import web.dto.ProductDto;
+import web.core.ProductDto;
 import web.exception.ResourceNotFoundException;
 
 import java.util.Optional;

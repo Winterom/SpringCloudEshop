@@ -1,11 +1,12 @@
-package cart.service;
+package cart.services;
 
-import cart.dto.Cart;
+import cart.integrations.ProductsServiceIntegration;
+import cart.models.Cart;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import web.dto.ProductDto;
+import web.core.ProductDto;
 import web.exception.ResourceNotFoundException;
 
 import java.util.UUID;
@@ -14,7 +15,7 @@ import java.util.function.Consumer;
 @Service
 @RequiredArgsConstructor
 public class CartService {
-    private final RequestProductService productsService;
+    private final ProductsServiceIntegration productsServiceIntegration;
     private final RedisTemplate<String, Object> redisTemplate;
 
     @Value("${utils.cart.prefix}")
@@ -36,13 +37,9 @@ public class CartService {
     }
 
     public void addToCart(String cartKey, Long productId) {
-        ProductDto product = productsService.findById(productId);
-        //наверное это не правильно в случае эксепшена когда не найден продукт
-        if (product==null){
-          throw new ResourceNotFoundException("Невозможно добавить продукт в корзину. Продукт не найдет, id: " + productId);
-        }
+        ProductDto productDto = productsServiceIntegration.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Невозможно добавить продукт в корзину. Продукт не найдет, id: " + productId));
         execute(cartKey, c -> {
-            c.add(product);
+            c.add(productDto);
         });
     }
 
@@ -72,7 +69,7 @@ public class CartService {
         redisTemplate.opsForValue().set(cartKey, cart);
     }
 
-    public void updateCart(String cartKey, Cart cart) {
+    private void updateCart(String cartKey, Cart cart) {
         redisTemplate.opsForValue().set(cartKey, cart);
     }
 }

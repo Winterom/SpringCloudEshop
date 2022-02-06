@@ -2,7 +2,7 @@ package core.validators;
 
 import core.exceptions.ValidationException;
 import org.springframework.stereotype.Component;
-import web.dto.ProductDto;
+import web.core.ProductDto;
 
 import java.util.ArrayList;
 import java.util.List;

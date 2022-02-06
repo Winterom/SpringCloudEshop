@@ -1,8 +1,8 @@
 package core.converters;
 
-import core.dto.OrderItemDto;
 import core.entities.OrderItem;
 import org.springframework.stereotype.Component;
+import web.core.OrderItemDto;
 
 @Component
 public class OrderItemConverter {

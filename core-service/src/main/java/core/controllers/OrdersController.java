@@ -2,12 +2,12 @@ package core.controllers;
 
 
 import core.converters.OrderConverter;
-import core.dto.OrderDetailsDto;
-import core.dto.OrderDto;
 import core.services.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import web.core.OrderDetailsDto;
+import web.core.OrderDto;
 
 import java.util.List;
 import java.util.stream.Collectors;

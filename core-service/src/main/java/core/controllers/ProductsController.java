@@ -8,7 +8,7 @@ import core.validators.ProductValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-import web.dto.ProductDto;
+import web.core.ProductDto;
 import web.exception.ResourceNotFoundException;
 
 @RestController

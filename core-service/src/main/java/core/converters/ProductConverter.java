@@ -2,7 +2,7 @@ package core.converters;
 
 import core.entities.Product;
 import org.springframework.stereotype.Component;
-import web.dto.ProductDto;
+import web.core.ProductDto;
 
 @Component
 public class ProductConverter {

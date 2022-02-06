@@ -1,26 +1,26 @@
-package cart.dto;
+package cart.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import web.dto.ProductDto;
+import web.core.ProductDto;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartItemDto {
+public class CartItem {
     private Long productId;
     private String productTitle;
     private int quantity;
     private int pricePerProduct;
     private int price;
 
-    public CartItemDto(ProductDto product) {
-        this.productId = product.getId();
-        this.productTitle = product.getTitle();
+    public CartItem(ProductDto productDto) {
+        this.productId = productDto.getId();
+        this.productTitle = productDto.getTitle();
         this.quantity = 1;
-        this.pricePerProduct = product.getPrice();
-        this.price = product.getPrice();
+        this.pricePerProduct = productDto.getPrice();
+        this.price = productDto.getPrice();
     }
 
     public void changeQuantity(int delta) {

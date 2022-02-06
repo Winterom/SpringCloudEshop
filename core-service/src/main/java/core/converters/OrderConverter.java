@@ -1,9 +1,9 @@
 package core.converters;
 
-import core.dto.OrderDto;
 import core.entities.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import web.core.OrderDto;
 
 import java.util.stream.Collectors;
 
