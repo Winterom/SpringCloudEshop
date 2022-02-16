@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import web.core.ProductDto;
 import web.exception.ResourceNotFoundException;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -69,7 +70,11 @@ public class CartService {
         redisTemplate.opsForValue().set(cartKey, cart);
     }
 
-    private void updateCart(String cartKey, Cart cart) {
+    public void updateCart(String cartKey, Cart cart) {
         redisTemplate.opsForValue().set(cartKey, cart);
+    }
+
+    public List<ProductDto> getMostAddedToCartProduct() {
+        redisTemplate.ge
     }
 }

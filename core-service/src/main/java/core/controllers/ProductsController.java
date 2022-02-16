@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import web.core.ProductDto;
 import web.exception.ResourceNotFoundException;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
@@ -38,6 +40,11 @@ public class ProductsController {
     public ProductDto getProductById(@PathVariable Long id) {
         Product product = productsService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not found, id: " + id));
         return productConverter.entityToDto(product);
+    }
+
+    @GetMapping("most-buying")
+    public List<ProductDto> mostBuyingProduct(){
+        return productsService.getMostBuyingProduct();
     }
 
     @PostMapping

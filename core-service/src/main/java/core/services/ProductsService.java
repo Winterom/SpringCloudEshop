@@ -12,11 +12,18 @@ import org.springframework.transaction.annotation.Transactional;
 import web.core.ProductDto;
 import web.exception.ResourceNotFoundException;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ProductsService {
+    @PersistenceContext
+    private EntityManager entityManager;
+
     private final ProductsRepository productsRepository;
 
     public Page<Product> findAll(Integer minPrice, Integer maxPrice, String partTitle, Integer page) {
@@ -52,5 +59,9 @@ public class ProductsService {
         product.setPrice(productDto.getPrice());
         product.setTitle(productDto.getTitle());
         return product;
+    }
+
+    public List<ProductDto> getMostBuyingProduct(){
+        return productsRepository.getMostBuyingProduct(entityManager).stream().map(x->new ProductDto(x.getId(), x.getTitle(), x.getPrice())).collect(Collectors.toList());
     }
 }

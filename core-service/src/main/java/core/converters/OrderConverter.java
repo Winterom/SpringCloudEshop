@@ -16,6 +16,7 @@ public class OrderConverter {
         throw new UnsupportedOperationException();
     }
 
+
     public OrderDto entityToDto(Order order) {
         OrderDto out = new OrderDto();
         out.setId(order.getId());
