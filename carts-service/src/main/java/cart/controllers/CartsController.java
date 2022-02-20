@@ -6,7 +6,10 @@ import cart.services.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import web.carts.CartDto;
+import web.core.ProductDto;
 import web.dto.StringResponse;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/cart")
@@ -58,5 +61,9 @@ public class CartsController {
             return cartService.getCartUuidFromSuffix(username);
         }
         return cartService.getCartUuidFromSuffix(uuid);
+    }
+
+    public List<ProductDto> getMostAddedToCartProduct(){
+       return cartService.getMostAddedToCartProduct();
     }
 }

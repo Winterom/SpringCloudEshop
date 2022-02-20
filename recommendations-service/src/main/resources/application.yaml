@@ -1,0 +1,9 @@
+server:
+  port: 8130
+  servlet:
+    context-path: /reccomendation
+integrations:
+  core-service:
+    url: http://localhost:8189/web-market-core
+  cart-service:
+    url: http://localhost:8166/web-market-carts
