@@ -1,7 +1,7 @@
 server:
   port: 8130
   servlet:
-    context-path: /reccomendation
+    context-path: /recommendation
 integrations:
   core-service:
     url: http://localhost:8189/web-market-core

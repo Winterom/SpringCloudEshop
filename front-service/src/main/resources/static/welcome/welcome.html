@@ -2,3 +2,37 @@
     <p></p>
     <h1>WEB MARKET</h1>
 </div>
+<hr>
+<h3>Натболее часто покупаемые товары</h3>
+<table class="table table-hover">
+    <tr>
+        <td>ID</td>
+        <td>Название</td>
+        <td>Цена</td>
+        <td></td>
+    </tr>
+    <tbody>
+    <tr ng-repeat="p in mostbuying">
+        <td>{{p.id}}</td>
+        <td>{{p.title}}</td>
+        <td>{{p.price}}</td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<h3>Натболее часто добавляемые в корзину товары</h3>
+<table class="table table-hover">
+    <tr>
+        <td>ID</td>
+        <td>Название</td>
+        <td>Цена</td>
+        <td></td>
+    </tr>
+    <tbody>
+    <tr ng-repeat="p in mostadded">
+        <td>{{p.id}}</td>
+        <td>{{p.title}}</td>
+        <td>{{p.price}}</td>
+    </tr>
+    </tbody>
+</table>

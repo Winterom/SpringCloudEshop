@@ -64,4 +64,8 @@ public class ProductsService {
     public List<ProductDto> getMostBuyingProduct(){
         return productsRepository.getMostBuyingProduct(entityManager).stream().map(x->new ProductDto(x.getId(), x.getTitle(), x.getPrice())).collect(Collectors.toList());
     }
+
+    public List<ProductDto> getProductDtoByIdInList(List<Long> productIdList){
+        return productsRepository.getProductByIdIn(productIdList).stream().map(x->new ProductDto(x.getId(), x.getTitle(), x.getPrice())).collect(Collectors.toList());
+    }
 }

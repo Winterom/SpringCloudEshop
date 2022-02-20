@@ -66,4 +66,9 @@ public class ProductsController {
     public void deleteById(@PathVariable Long id) {
         productsService.deleteById(id);
     }
+
+    @PostMapping("findbyidinlist")
+    public List<ProductDto> findByIdInList(@RequestBody List<Long> productIdList){
+        return productsService.getProductDtoByIdInList(productIdList);
+    }
 }
