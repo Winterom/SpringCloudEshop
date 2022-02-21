@@ -63,6 +63,7 @@ public class CartsController {
         return cartService.getCartUuidFromSuffix(uuid);
     }
 
+    @GetMapping("/mostadded")
     public List<ProductDto> getMostAddedToCartProduct(){
        return cartService.getMostAddedToCartProduct();
     }

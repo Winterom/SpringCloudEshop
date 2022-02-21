@@ -33,7 +33,7 @@ public class RecommendationsService {
 
     public List<ProductDto> getMostAddedToCartProductDto(){
         if (mostAddedToCart.size()==0){
-            mostAddedToCart = recommendationsIntegration.getMostBuyingProductDto();
+            mostAddedToCart = recommendationsIntegration.getMostAddedToCartProductDto();
         }
         return mostAddedToCart;
     }

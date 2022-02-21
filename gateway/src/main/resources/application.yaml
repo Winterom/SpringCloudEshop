@@ -32,12 +32,12 @@ spring:
             - PrefixPath=/web-market-auth
             - JwtAuthFilter
         - id: carts-service
-          uri: http://localhost:8192/
+          uri: http://localhost:8166/
           predicates:
             - Path=/cart/**
           filters:
             - StripPrefix=1
-            - PrefixPath=/market-cart
+            - PrefixPath=/web-market-carts
             - JwtAuthFilter
         - id: recommendation-service
           uri: http://localhost:8130/
