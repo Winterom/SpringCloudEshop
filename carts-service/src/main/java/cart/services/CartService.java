@@ -12,6 +12,7 @@ import web.exception.ResourceNotFoundException;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +22,8 @@ public class CartService {
 
     @Value("${utils.cart.prefix}")
     private String cartPrefix;
+    @Value("${utils.cart.statistic}")
+    private String cartStatistic;
 
     public String getCartUuidFromSuffix(String suffix) {
         return cartPrefix + suffix;
@@ -42,6 +45,7 @@ public class CartService {
         execute(cartKey, c -> {
             c.add(productDto);
         });
+        redisTemplate.opsForZSet().add(cartStatistic,productDto.getId(),1);
     }
 
     public void clearCart(String cartKey) {
@@ -49,10 +53,13 @@ public class CartService {
     }
 
     public void removeItemFromCart(String cartKey, Long productId) {
+        Cart cart = getCurrentCart(cartKey);
+        redisTemplate.opsForZSet().incrementScore(cartStatistic,productId,-cart.getQuantityOfItem(productId));
         execute(cartKey, c -> c.remove(productId));
     }
 
     public void decrementItem(String cartKey, Long productId) {
+        redisTemplate.opsForZSet().incrementScore(cartStatistic,productId,-1);
         execute(cartKey, c -> c.decrement(productId));
     }
 
@@ -75,6 +82,7 @@ public class CartService {
     }
 
     public List<ProductDto> getMostAddedToCartProduct() {
-        redisTemplate.ge
+       List<Long> result = redisTemplate.opsForZSet().reverseRange(cartStatistic,0,4).stream().map(x->(Long)x).collect(Collectors.toList());
+       return  productsServiceIntegration.findByIdInListProduct(result);
     }
 }

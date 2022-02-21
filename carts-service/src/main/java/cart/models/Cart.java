@@ -2,6 +2,7 @@ package cart.models;
 
 import lombok.Data;
 import web.core.ProductDto;
+import web.exception.ResourceNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -83,5 +84,9 @@ public class Cart {
         }
         recalculate();
         another.clear();
+    }
+    public int getQuantityOfItem(Long productId){
+        return items.stream().filter(x->x.getProductId().equals(productId)).findFirst()
+                .orElseThrow(()->new ResourceNotFoundException("В корзине отсутствует продукт с id "+productId)).getQuantity();
     }
 }

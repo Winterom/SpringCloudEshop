@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -17,4 +18,6 @@ public interface ProductsRepository extends JpaRepository<Product, Long>, JpaSpe
         query.setMaxResults(5);
         return (List<Product>) query.getResultList();
     }
+
+    public List<Product> getProductByIdIn(List<Long> id);
 }

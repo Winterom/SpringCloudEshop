@@ -5,6 +5,7 @@ server:
 utils:
   cart:
     prefix: SPRING_WEB_APP_
+    statistic: statistic
 integrations:
   core-service:
     url: http://localhost:5555/core
