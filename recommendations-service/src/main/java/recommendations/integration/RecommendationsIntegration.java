@@ -33,7 +33,7 @@ public class RecommendationsIntegration {
 
     public List<ProductDto> getMostAddedToCartProductDto() {
         return cartServiceWebClient.get()
-                .uri("/api/v1/cart/0")
+                .uri("/api/v1/cart/mostadded")
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<CopyOnWriteArrayList<ProductDto>>(){})
                 .block();
