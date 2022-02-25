@@ -15,6 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -62,7 +63,8 @@ public class CartTest {
         cartService.updateCart(cartKeyUser, cartUser);
         cartService.updateCart(cartKeyGuest, cartGuest);
 
-        int testAmount = cartItemFirst.getPrice()+ cartItemSecond.getPrice();
+        BigDecimal testAmount = cartItemFirst.getPrice();
+        testAmount.add( cartItemSecond.getPrice());
 
         cartService.merge(cartKeyUser,cartKeyGuest);
         Assertions.assertEquals(0, cartService.getCurrentCart(cartKeyGuest).getItems().size());
@@ -78,7 +80,7 @@ public class CartTest {
         cartService.addToCart(cartKeyUser,UtilTest.productId);
         cartService.addToCart(cartKeyUser,UtilTest.productId);
         Assertions.assertEquals(1,cartService.getCurrentCart(cartKeyUser).getItems().size());
-        Assertions.assertEquals(UtilTest.getProductDtoMeat().getPrice()*4,cartService.getCurrentCart(cartKeyUser).getTotalPrice());
+        Assertions.assertEquals(UtilTest.getProductDtoMeat().getPrice().multiply(BigDecimal.valueOf(4)),cartService.getCurrentCart(cartKeyUser).getTotalPrice());
     }
 
     @Test
@@ -92,7 +94,7 @@ public class CartTest {
 
         cartService.removeItemFromCart(cartKeyUser,cartUser.getItems().get(0).getProductId());
         Assertions.assertEquals(1,cartService.getCurrentCart(cartKeyUser).getItems().size());
-        int resultAmount = cartService.getCurrentCart(cartKeyUser).getItems().get(0).getPrice();
+        BigDecimal resultAmount = cartService.getCurrentCart(cartKeyUser).getItems().get(0).getPrice();
         Assertions.assertEquals(resultAmount,cartService.getCurrentCart(cartKeyUser).getTotalPrice());
     }
 
@@ -105,7 +107,7 @@ public class CartTest {
 
         cartService.decrementItem(cartKeyUser,UtilTest.productId);
         Assertions.assertEquals(3,cartService.getCurrentCart(cartKeyUser).getItems().get(0).getQuantity());
-        int resultAmount = cartService.getCurrentCart(cartKeyUser).getItems().get(0).getPrice();
+        BigDecimal resultAmount = cartService.getCurrentCart(cartKeyUser).getItems().get(0).getPrice();
         Assertions.assertEquals(resultAmount,cartService.getCurrentCart(cartKeyUser).getTotalPrice());
     }
     @Test

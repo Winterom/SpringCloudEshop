@@ -3,6 +3,8 @@ package cart;
 import cart.models.CartItem;
 import web.core.ProductDto;
 
+import java.math.BigDecimal;
+
 public class UtilTest {
     public static final Long productId = 134L;
     public static CartItem getCartItemBread(){
@@ -10,8 +12,8 @@ public class UtilTest {
         cartItem.setProductId(1L);
         cartItem.setProductTitle("хлеб");
         cartItem.setQuantity(5);
-        cartItem.setPricePerProduct(120);
-        cartItem.setPrice(600);
+        cartItem.setPricePerProduct(BigDecimal.valueOf(120));
+        cartItem.setPrice(BigDecimal.valueOf(600L));
         return cartItem;
     }
     public static CartItem getCartItemMilk(){
@@ -19,8 +21,8 @@ public class UtilTest {
         cartItem.setProductId(3L);
         cartItem.setProductTitle("молоко");
         cartItem.setQuantity(4);
-        cartItem.setPricePerProduct(80);
-        cartItem.setPrice(320);
+        cartItem.setPricePerProduct(BigDecimal.valueOf(80L));
+        cartItem.setPrice(BigDecimal.valueOf(320L));
         return cartItem;
     }
 
@@ -28,7 +30,7 @@ public class UtilTest {
         ProductDto product = new ProductDto();
         product.setId(productId);
         product.setTitle("мясо");
-        product.setPrice(320);
+        product.setPrice(BigDecimal.valueOf(320L));
         return product;
     }
 }
