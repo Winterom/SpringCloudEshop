@@ -1,7 +1,7 @@
 package cart.integrations;
 
 
-import org.springframework.beans.factory.annotation.Value;
+import cart.configs.CoreServiceIntegrationProperty;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -16,9 +16,7 @@ import java.util.*;
 @Component
 public class ProductsServiceIntegration {
     private final WebClient coreServiceClient;
-
-    @Value("${integrations.core-service.url}")
-    private String productServiceUrl;
+    CoreServiceIntegrationProperty property;
 
     public ProductsServiceIntegration(WebClient coreServiceClient) {
         this.coreServiceClient = coreServiceClient;
@@ -26,7 +24,7 @@ public class ProductsServiceIntegration {
 
     public Optional<ProductDto> findById(Long id) {
         ProductDto productDto =coreServiceClient.get()
-                .uri(productServiceUrl + "/api/v1/products/" + id)
+                .uri(property.getCoreServiceUrl() + "/api/v1/products/" + id)
                 .retrieve()
                 .onStatus(HttpStatus::is5xxServerError, clientResponse -> Mono.error(new ServerNotResponseException("Core-service временно не доступен")))
                 .onStatus(HttpStatus.NOT_FOUND::equals,clientResponse -> Mono.error(new ResourceNotFoundException("Не найден продукт с id: "+id)))
@@ -37,7 +35,7 @@ public class ProductsServiceIntegration {
 
     public List<ProductDto> findByIdInListProduct(List<Long> productList){
         return  coreServiceClient.post()
-                .uri(productServiceUrl + "/api/v1/products/findbyidinlist")
+                .uri(property.getCoreServiceUrl() + "/api/v1/products/findbyidinlist")
                 .body(Mono.just(productList), new ParameterizedTypeReference<>() {})
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<ProductDto>>(){})

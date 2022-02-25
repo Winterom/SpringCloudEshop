@@ -8,4 +8,8 @@ utils:
     statistic: statistic
 integrations:
   core-service:
-    url: http://localhost:5555/core
+    coreServiceUrl: http://localhost:5555/core
+    readTimeout: 10000
+    writeTimeout: 2000
+    connectionTimeout: 2000
+

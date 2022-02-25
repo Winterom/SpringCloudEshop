@@ -1,14 +1,14 @@
 package web.exception;
 
 public class AppError {
-    private int statusCode;
+    private String statusCode;
     private String message;
 
-    public int getStatusCode() {
+    public String getStatusCode() {
         return statusCode;
     }
 
-    public void setStatusCode(int statusCode) {
+    public void setStatusCode(String statusCode) {
         this.statusCode = statusCode;
     }
 
@@ -23,7 +23,7 @@ public class AppError {
     public AppError() {
     }
 
-    public AppError(int statusCode, String message) {
+    public AppError(String statusCode, String message) {
         this.statusCode = statusCode;
         this.message = message;
     }

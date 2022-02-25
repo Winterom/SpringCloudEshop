@@ -2,7 +2,6 @@ package cart.services;
 
 import cart.integrations.ProductsServiceIntegration;
 import cart.models.Cart;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class CartService {
     private final ProductsServiceIntegration productsServiceIntegration;
     private final RedisTemplate<String, Object> redisTemplate;
@@ -24,6 +22,11 @@ public class CartService {
     private String cartPrefix;
     @Value("${utils.cart.statistic}")
     private String cartStatistic;
+
+    public CartService(ProductsServiceIntegration productsServiceIntegration, RedisTemplate<String, Object> redisTemplate) {
+        this.productsServiceIntegration = productsServiceIntegration;
+        this.redisTemplate = redisTemplate;
+    }
 
     public String getCartUuidFromSuffix(String suffix) {
         return cartPrefix + suffix;
