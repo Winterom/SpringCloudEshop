@@ -2,6 +2,8 @@ package core.services;
 
 import core.entities.Order;
 import core.entities.OrderItem;
+import core.entities.OrderStatusEnum;
+import core.entities.PayCountryCodeEnum;
 import core.integration.CartServiceIntegration;
 import core.repositories.OrdersRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import web.core.OrderDetailsDto;
 import web.exception.ResourceNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,9 +28,15 @@ public class OrderService {
     public void createOrder(String username, OrderDetailsDto orderDetailsDto) {
         CartDto currentCart = cartServiceIntegration.getUserCart(username);
         Order order = new Order();
-        order.setAddress(orderDetailsDto.getAddress());
+        order.setAddressLine1(orderDetailsDto.getAddressLine1());
+        order.setAddressLine2(orderDetailsDto.getAddressLine2());
+        order.setAdminArea1(orderDetailsDto.getAdminArea1());
+        order.setAdminArea2(orderDetailsDto.getAdminArea2());
+        order.setCountryCode(PayCountryCodeEnum.valueOf(orderDetailsDto.getCountryCode()));
+        order.setPostalCode(orderDetailsDto.getPostalCode());
         order.setPhone(orderDetailsDto.getPhone());
         order.setUsername(username);
+        order.setStatus(OrderStatusEnum.CREATED);
         order.setTotalPrice(currentCart.getTotalPrice());
         List<OrderItem> items = currentCart.getItems().stream()
                 .map(o -> {
@@ -46,5 +55,15 @@ public class OrderService {
 
     public List<Order> findOrdersByUsername(String username) {
         return ordersRepository.findAllByUsername(username);
+    }
+
+    public Optional<Order> findById(Long id) {
+        return ordersRepository.findById(id);
+    }
+
+    public Order updateAfterPay(Long id){
+        Order order = findById(id).orElseThrow(()-> new ResourceNotFoundException("Невозможно обновить продукта, не надйен в базе, id:" +id));
+        order.setStatus(OrderStatusEnum.PAID);
+        return order;
     }
 }

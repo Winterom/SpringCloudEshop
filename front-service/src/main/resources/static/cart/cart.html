@@ -29,8 +29,26 @@
     <form novalidate>
         <input class="form-control" type="text" placeholder="Номер телефона получателя" ng-model="orderDetails.phone">
         <p></p>
-        <input class="form-control" type="text" placeholder="Адрес доставки" ng-model="orderDetails.address">
+        <input class="form-control" type="text" placeholder="Адрес доставки" ng-model="orderDetails.addressLine1">
         <p></p>
+        <input class="form-control" type="text" placeholder="Адрес доставки" ng-model="orderDetails.addressLine2">
+        <p></p>
+        <input class="form-control" type="text" placeholder="Административный окуруг (область)" ng-model="orderDetails.adminArea1">
+        <p></p>
+        <input class="form-control" type="text" placeholder="Административный окуруг (область)" ng-model="orderDetails.adminArea2">
+        <p></p>
+        <input class="form-control" type="text" placeholder="Индекс" ng-model="orderDetails.postalCode">
+        <p></p>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01" ng-model="orderDetails.countryCode">Страна платежа</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01">
+                <option selected value="RU">Россия</option>
+                <option value="US">США</option>
+                <option value="GB">Великобритания</option>
+            </select>
+        </div>
     </form>
 
     <button class="btn btn-primary" ng-click="checkOut()" ng-show="isUserLoggedIn() && cart.items.length > 0">Оформить заказ</button>
