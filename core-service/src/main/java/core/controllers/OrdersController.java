@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import web.core.OrderDetailsDto;
 import web.core.OrderDto;
 import web.core.ProductDto;
+import web.exception.ResourceNotFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,5 +55,10 @@ public class OrdersController {
     public List<OrderDto> getCurrentUserOrders(@Parameter  @RequestHeader String username) {
         return orderService.findOrdersByUsername(username).stream()
                 .map(orderConverter::entityToDto).collect(Collectors.toList());
+    }
+
+    @GetMapping("/{id}")
+    public OrderDto getOrderById(@PathVariable Long id) {
+        return orderConverter.entityToDto(orderService.findById(id).orElseThrow(() -> new ResourceNotFoundException("ORDER 404")));
     }
 }

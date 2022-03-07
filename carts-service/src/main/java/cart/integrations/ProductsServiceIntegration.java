@@ -2,6 +2,7 @@ package cart.integrations;
 
 
 import cart.configs.CoreServiceIntegrationProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,7 @@ import java.util.*;
 @Component
 public class ProductsServiceIntegration {
     private final WebClient coreServiceClient;
-    CoreServiceIntegrationProperty property;
+    private final CoreServiceIntegrationProperty property = new CoreServiceIntegrationProperty();
 
     public ProductsServiceIntegration(WebClient coreServiceClient) {
         this.coreServiceClient = coreServiceClient;
